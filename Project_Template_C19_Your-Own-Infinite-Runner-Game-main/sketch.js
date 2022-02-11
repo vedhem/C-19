@@ -1,4 +1,4 @@
-var background, backgroungImg;
+var background, backgroundImg;
 var ball, ballImg;
 var obsOne, obsOneImg;
 var obsTwo, obsTwoImg;
@@ -24,7 +24,6 @@ function setup() {
 
     background = createSprite(300, 300);
     background.addImage("field", backgroundImg);
-    background.velocityY = 4;
 
     ball = createSprite(300, 300);
     ball.addImage("ball", ballImg);
@@ -37,43 +36,39 @@ function setup() {
 
 function spawnObsOne() {
     if (World.frameCount % 400 === 0) {
-        obsOne = createSprite(Math.round(random(50, 400)), 620, 20, 20);
+        obsOne = createSprite(200, -20, 20, 20);
         obsOne.addImage(obsOneImg);
-        obsOne.scale = 0.03;
+        obsOne.scale = 0.99;
         obsOne.velocityY = 4;
-        obsOne.lifetime = 200;
         obsOnes.add(obsOne);
     }
 }
 
 function spawnObsTwo() {
-    if (World.frameCount % 30 === 0) {
-        obsTwo = createSprite(Math.round(random(50, 400)), 620, 20, 20);
+    if (World.frameCount % 300 === 0) {
+        obsTwo = createSprite(200, -20, 20, 20);
         obsTwo.addImage(obsTwoImg);
-        obsTwo.scale = 0.03;
+        obsTwo.scale = 0.99;
         obsTwo.velociyY = 4;
-        obsTwo.lifetime = 200;
         obsTwos.add(obsTwo);
     }
 }
 
 function spawnGoals() {
-    if(World.frameCount % 15 === 0) {
-        goal = createSprite(/*Math.round(random(50, 400))*/300, -20, 20, 20);
+    if(World.frameCount % 90 === 0) {
+        goal = createSprite(Math.round(random(50, 400)), -20, 20, 20);
         goal.addImage(goalImg);
-        goal.scale = 0.03;
+        goal.scale = 0.99;
         goal.velocityY = 4;
         goals.add(goal);
     }
-    goal.depth = background.depth;
-    goal.depth = goal.depth + 1;
-    goal.background = 600;
 }
 
 
 
 function draw() {
     if (gameState == PLAY) {
+        background.velocityY = 4;
         if (keyDown("left_arrow")) {
             ball.x = ball.x - 5;
         }
@@ -84,7 +79,7 @@ function draw() {
         ball.collide(edges);
 
         if (background.y > 600) {
-            background.y = background.y / 2;
+            background.y = background.height/2;
         }
         spawnGoals();
         spawnObsOne();
